@@ -918,37 +918,69 @@ function showNotification(message, type = 'info') {
 // Include all previous functions (addWorkout, renderWorkoutList, addFood, etc.)
 // [Previous functions would be included here - keeping existing functionality]
 
-// Subtle 3D Effects (Grounded)
+// Optimized 3D Effects (Performance-focused)
 function init3DEffects() {
+  // Only initialize on desktop and if user prefers motion
+  if (window.innerWidth <= 768 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    return;
+  }
+  
   const sections = document.querySelectorAll('.section');
   const cards = document.querySelectorAll('.stat-card, .dashboard-card');
   
-  // Add subtle hover effects to sections
+  // Use passive event listeners for better performance
+  const options = { passive: true };
+  
+  // Add subtle hover effects to sections with throttling
   sections.forEach(section => {
+    let isHovered = false;
+    
     section.addEventListener('mouseenter', () => {
-      section.style.transform = 'translateZ(4px) translateY(-4px)';
-    });
+      if (!isHovered) {
+        isHovered = true;
+        requestAnimationFrame(() => {
+          section.style.transform = 'translateZ(2px) translateY(-2px)';
+        });
+      }
+    }, options);
     
     section.addEventListener('mouseleave', () => {
-      section.style.transform = 'translateZ(2px)';
-    });
+      if (isHovered) {
+        isHovered = false;
+        requestAnimationFrame(() => {
+          section.style.transform = 'translateZ(1px)';
+        });
+      }
+    }, options);
   });
   
-  // Add subtle effects to cards
+  // Add subtle effects to cards with throttling
   cards.forEach(card => {
+    let isHovered = false;
+    
     card.addEventListener('mouseenter', () => {
-      card.style.transform = 'translateZ(2px) translateY(-2px) scale(1.02)';
-    });
+      if (!isHovered) {
+        isHovered = true;
+        requestAnimationFrame(() => {
+          card.style.transform = 'translateZ(1px) translateY(-1px) scale(1.01)';
+        });
+      }
+    }, options);
     
     card.addEventListener('mouseleave', () => {
-      card.style.transform = 'translateZ(1px)';
-    });
+      if (isHovered) {
+        isHovered = false;
+        requestAnimationFrame(() => {
+          card.style.transform = 'translateZ(0.5px)';
+        });
+      }
+    }, options);
   });
 }
 
 // Removed parallax effect for more stable experience
 
-// Initialize App
+// Initialize App with performance optimizations
 document.addEventListener('DOMContentLoaded', function() {
   // Initialize data if not exists
   if (!healthData.workouts) healthData.workouts = [];
@@ -964,37 +996,43 @@ document.addEventListener('DOMContentLoaded', function() {
     hidePremiumBanner();
   }
   
-  // Load and render all data
-  renderWorkoutList(healthData.workouts);
-  renderFoodList(healthData.foods);
-  updateCalorieStats();
-  updateWaterStats();
-  updateWaterVisual();
-  updateSleepStats();
-  updateHeaderStats();
+  // Load and render all data with requestAnimationFrame for better performance
+  requestAnimationFrame(() => {
+    renderWorkoutList(healthData.workouts);
+    renderFoodList(healthData.foods);
+    updateCalorieStats();
+    updateWaterStats();
+    updateWaterVisual();
+    updateSleepStats();
+    updateHeaderStats();
+  });
   
-  // Initialize weight chart
-  if (healthData.weights && healthData.weights.length > 0) {
-    initializeChart();
-    updateWeightStats();
-  } else {
-    initializeChart();
-  }
-  
-  // Initialize macro chart
-  initializeMacroChart();
-  
-  // Initialize subtle 3D effects
+  // Initialize charts with delay for better performance
   setTimeout(() => {
-    init3DEffects();
-  }, 1000);
+    if (healthData.weights && healthData.weights.length > 0) {
+      initializeChart();
+      updateWeightStats();
+    } else {
+      initializeChart();
+    }
+    
+    // Initialize macro chart
+    initializeMacroChart();
+  }, 100);
+  
+  // Initialize 3D effects only if not on mobile
+  if (window.innerWidth > 768) {
+    setTimeout(() => {
+      init3DEffects();
+    }, 500);
+  }
   
   // Welcome message for new users
   if (!localStorage.getItem('hasVisited')) {
     setTimeout(() => {
       showNotification('Welcome to HealthSolve Pro! 🎉 Your complete health companion', 'success');
       localStorage.setItem('hasVisited', 'true');
-    }, 1000);
+    }, 2000);
   }
   
   // AI input enter key support
