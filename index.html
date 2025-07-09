@@ -11,14 +11,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%23007aff'/></svg>">
 </head>
 <body>
-  <!-- Premium Banner -->
-  <div class="premium-banner" id="premiumBanner">
-    <div class="banner-content">
-      <span class="premium-icon">👑</span>
-      <span>Unlock Premium Features - AI Health Analysis, Custom Plans & More!</span>
-      <button onclick="showPremiumModal()" class="banner-cta">Upgrade Now</button>
-    </div>
-  </div>
+  
 
   <!-- Header -->
   <div class="header">
@@ -45,7 +38,6 @@
     <h2>
       <div class="section-icon ai-icon">🤖</div>
       AI Health Assistant
-      <span class="premium-badge">PREMIUM</span>
     </h2>
     <div class="ai-chat-container">
       <div class="ai-messages" id="aiMessages">
@@ -107,13 +99,12 @@
         <h3>Symptom Checker</h3>
         <div class="symptom-inputs">
           <input id="symptomInput" placeholder="Describe your symptoms..." type="text" />
-          <button onclick="checkSymptoms()" class="premium-feature">
-            <span class="premium-icon">👑</span>
+          <button onclick="checkSymptoms()">
             Analyze
           </button>
         </div>
         <div class="symptom-result" id="symptomResult">
-          <p>AI-powered symptom analysis available with Premium</p>
+          <p>Describe your symptoms above and click Analyze for AI-powered analysis</p>
         </div>
       </div>
     </div>
@@ -139,11 +130,10 @@
             <span>Strength</span>
             <span class="template-duration">45 min</span>
           </button>
-          <button onclick="startWorkout('Yoga Flow')" class="template-btn premium-feature">
+          <button onclick="startWorkout('Yoga Flow')" class="template-btn">
             <span class="template-icon">🧘</span>
             <span>Yoga Flow</span>
             <span class="template-duration">30 min</span>
-            <span class="premium-icon">👑</span>
           </button>
         </div>
       </div>
@@ -169,13 +159,12 @@
     
     <!-- Meal Scanner -->
     <div class="meal-scanner">
-      <h3>Meal Scanner <span class="premium-badge">PREMIUM</span></h3>
+      <h3>Meal Scanner</h3>
       <div class="scanner-area">
         <div class="camera-placeholder">
           <span class="camera-icon">📷</span>
           <p>Take a photo of your meal for instant nutrition analysis</p>
-          <button onclick="scanMeal()" class="premium-feature">
-            <span class="premium-icon">👑</span>
+          <button onclick="scanMeal()">
             Scan Meal
           </button>
         </div>
@@ -290,19 +279,18 @@
             <label>Weight (kg)</label>
             <input id="weightInput" type="number" step="0.1" min="30" max="200" />
           </div>
-          <div class="measurement-item premium-feature">
-            <label>Body Fat % <span class="premium-icon">👑</span></label>
+          <div class="measurement-item">
+            <label>Body Fat %</label>
             <input id="bodyFatInput" type="number" step="0.1" min="5" max="50" />
           </div>
-          <div class="measurement-item premium-feature">
-            <label>Muscle Mass (kg) <span class="premium-icon">👑</span></label>
+          <div class="measurement-item">
+            <label>Muscle Mass (kg)</label>
             <input id="muscleMassInput" type="number" step="0.1" min="10" max="100" />
           </div>
         </div>
         <div class="measurement-buttons">
           <button onclick="addWeight()">Record Weight</button>
-          <button onclick="addBodyComposition()" class="premium-feature">
-            <span class="premium-icon">👑</span>
+          <button onclick="addBodyComposition()">
             Record All
           </button>
         </div>
@@ -336,134 +324,36 @@
     <h2>
       <div class="section-icon report-icon">📋</div>
       Health Reports & Insights
-      <span class="premium-badge">PREMIUM</span>
     </h2>
     
     <div class="reports-container">
-      <div class="report-card premium-feature">
+      <div class="report-card">
         <h3>Weekly Health Report</h3>
         <p>Get comprehensive weekly insights about your health progress, including AI recommendations.</p>
-        <button onclick="generateReport('weekly')" class="premium-feature">
-          <span class="premium-icon">👑</span>
+        <button onclick="generateReport('weekly')">
           Generate Report
         </button>
       </div>
       
-      <div class="report-card premium-feature">
+      <div class="report-card">
         <h3>Personalized Meal Plan</h3>
         <p>AI-generated meal plans based on your goals, preferences, and dietary restrictions.</p>
-        <button onclick="generateMealPlan()" class="premium-feature">
-          <span class="premium-icon">👑</span>
+        <button onclick="generateMealPlan()">
           Create Plan
         </button>
       </div>
       
-      <div class="report-card premium-feature">
+      <div class="report-card">
         <h3>Workout Optimization</h3>
         <p>Get AI-powered workout recommendations optimized for your fitness level and goals.</p>
-        <button onclick="optimizeWorkout()" class="premium-feature">
-          <span class="premium-icon">👑</span>
+        <button onclick="optimizeWorkout()">
           Optimize
         </button>
       </div>
     </div>
   </div>
 
-  <!-- Premium Modal -->
-  <div class="premium-modal" id="premiumModal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2>Unlock Premium Features</h2>
-        <button onclick="closePremiumModal()" class="close-btn">&times;</button>
-      </div>
-      
-      <div class="premium-features">
-        <div class="feature-item">
-          <span class="feature-icon">🤖</span>
-          <div class="feature-text">
-            <h3>AI Health Assistant</h3>
-            <p>24/7 personalized health advice and symptom analysis</p>
-          </div>
-        </div>
-        
-        <div class="feature-item">
-          <span class="feature-icon">📷</span>
-          <div class="feature-text">
-            <h3>Meal Scanner</h3>
-            <p>Instant nutrition analysis from photos</p>
-          </div>
-        </div>
-        
-        <div class="feature-item">
-          <span class="feature-icon">📊</span>
-          <div class="feature-text">
-            <h3>Advanced Analytics</h3>
-            <p>Detailed health reports and body composition tracking</p>
-          </div>
-        </div>
-        
-        <div class="feature-item">
-          <span class="feature-icon">🍽️</span>
-          <div class="feature-text">
-            <h3>Custom Meal Plans</h3>
-            <p>AI-generated meal plans for your specific goals</p>
-          </div>
-        </div>
-        
-        <div class="feature-item">
-          <span class="feature-icon">🏃</span>
-          <div class="feature-text">
-            <h3>Premium Workouts</h3>
-            <p>Access to exclusive workout plans and yoga sessions</p>
-          </div>
-        </div>
-        
-        <div class="feature-item">
-          <span class="feature-icon">☁️</span>
-          <div class="feature-text">
-            <h3>Cloud Sync</h3>
-            <p>Sync your data across all devices</p>
-          </div>
-        </div>
-      </div>
-      
-      <div class="pricing-section">
-        <div class="pricing-card featured">
-          <div class="pricing-header">
-            <h3>Premium Monthly</h3>
-            <div class="price">$9.99<span>/month</span></div>
-          </div>
-          <ul class="pricing-features">
-            <li>✅ All Premium Features</li>
-            <li>✅ Unlimited AI Consultations</li>
-            <li>✅ Advanced Analytics</li>
-            <li>✅ Custom Meal Plans</li>
-            <li>✅ Priority Support</li>
-          </ul>
-          <button onclick="purchasePremium('monthly')" class="purchase-btn">Start Free Trial</button>
-        </div>
-        
-        <div class="pricing-card">
-          <div class="pricing-header">
-            <h3>Premium Yearly</h3>
-            <div class="price">$79.99<span>/year</span></div>
-            <div class="savings">Save 33%!</div>
-          </div>
-          <ul class="pricing-features">
-            <li>✅ All Monthly Features</li>
-            <li>✅ Annual Health Report</li>
-            <li>✅ Exclusive Content</li>
-            <li>✅ Beta Feature Access</li>
-          </ul>
-          <button onclick="purchasePremium('yearly')" class="purchase-btn">Best Value</button>
-        </div>
-      </div>
-      
-      <div class="modal-footer">
-        <p>7-day free trial • Cancel anytime • No commitment</p>
-      </div>
-    </div>
-  </div>
+  
 
   <script src="script.js"></script>
 </body>
