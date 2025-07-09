@@ -1,0 +1,470 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HealthSolve Pro - AI-Powered Health Companion</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/date-fns@2.29.3/index.min.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%23007aff'/></svg>">
+</head>
+<body>
+  <!-- Premium Banner -->
+  <div class="premium-banner" id="premiumBanner">
+    <div class="banner-content">
+      <span class="premium-icon">👑</span>
+      <span>Unlock Premium Features - AI Health Analysis, Custom Plans & More!</span>
+      <button onclick="showPremiumModal()" class="banner-cta">Upgrade Now</button>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <div class="header">
+    <h1>HealthSolve Pro</h1>
+    <p class="subtitle">Your AI-Powered Complete Health Solution</p>
+    <div class="header-stats">
+      <div class="stat-pill">
+        <span class="stat-icon">🏃</span>
+        <span id="totalWorkouts">0</span> Workouts
+      </div>
+      <div class="stat-pill">
+        <span class="stat-icon">🔥</span>
+        <span id="totalCalories">0</span> kcal Burned
+      </div>
+      <div class="stat-pill">
+        <span class="stat-icon">⭐</span>
+        <span id="healthScore">85</span> Health Score
+      </div>
+    </div>
+  </div>
+
+  <!-- AI Health Assistant -->
+  <div class="section ai-section">
+    <h2>
+      <div class="section-icon ai-icon">🤖</div>
+      AI Health Assistant
+      <span class="premium-badge">PREMIUM</span>
+    </h2>
+    <div class="ai-chat-container">
+      <div class="ai-messages" id="aiMessages">
+        <div class="ai-message">
+          <div class="ai-avatar">🤖</div>
+          <div class="message-content">
+            <p>Hi! I'm your AI Health Assistant. Ask me about your health goals, symptoms, or get personalized recommendations!</p>
+          </div>
+        </div>
+      </div>
+      <div class="ai-input-container">
+        <input id="aiInput" placeholder="Ask about your health, symptoms, or goals..." type="text" />
+        <button onclick="sendAIMessage()" class="ai-send-btn">
+          <span>Send</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Health Dashboard -->
+  <div class="section dashboard-section">
+    <h2>
+      <div class="section-icon dashboard-icon">📊</div>
+      Health Dashboard
+    </h2>
+    <div class="dashboard-grid">
+      <div class="dashboard-card bmi-card">
+        <h3>BMI Calculator</h3>
+        <div class="bmi-inputs">
+          <input id="heightInput" placeholder="Height (cm)" type="number" />
+          <input id="weightInputBMI" placeholder="Weight (kg)" type="number" />
+          <button onclick="calculateBMI()">Calculate</button>
+        </div>
+        <div class="bmi-result" id="bmiResult">
+          <div class="bmi-value">--</div>
+          <div class="bmi-category">Enter your measurements</div>
+        </div>
+      </div>
+      
+      <div class="dashboard-card sleep-card">
+        <h3>Sleep Tracker</h3>
+        <div class="sleep-inputs">
+          <input id="sleepHours" placeholder="Hours slept" type="number" step="0.5" min="0" max="24" />
+          <button onclick="logSleep()">Log Sleep</button>
+        </div>
+        <div class="sleep-stats">
+          <div class="sleep-stat">
+            <span class="sleep-value" id="avgSleep">0</span>
+            <span class="sleep-label">Avg Hours</span>
+          </div>
+          <div class="sleep-stat">
+            <span class="sleep-value" id="sleepQuality">Good</span>
+            <span class="sleep-label">Quality</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="dashboard-card symptoms-card">
+        <h3>Symptom Checker</h3>
+        <div class="symptom-inputs">
+          <input id="symptomInput" placeholder="Describe your symptoms..." type="text" />
+          <button onclick="checkSymptoms()" class="premium-feature">
+            <span class="premium-icon">👑</span>
+            Analyze
+          </button>
+        </div>
+        <div class="symptom-result" id="symptomResult">
+          <p>AI-powered symptom analysis available with Premium</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Workout Tracker Enhanced -->
+  <div class="section">
+    <h2>
+      <div class="section-icon workout-icon">🏋️</div>
+      Smart Workout Planner
+    </h2>
+    <div class="workout-planner">
+      <div class="workout-templates">
+        <h3>Quick Workouts</h3>
+        <div class="template-grid">
+          <button onclick="startWorkout('Beginner HIIT')" class="template-btn">
+            <span class="template-icon">⚡</span>
+            <span>Beginner HIIT</span>
+            <span class="template-duration">15 min</span>
+          </button>
+          <button onclick="startWorkout('Strength Training')" class="template-btn">
+            <span class="template-icon">💪</span>
+            <span>Strength</span>
+            <span class="template-duration">45 min</span>
+          </button>
+          <button onclick="startWorkout('Yoga Flow')" class="template-btn premium-feature">
+            <span class="template-icon">🧘</span>
+            <span>Yoga Flow</span>
+            <span class="template-duration">30 min</span>
+            <span class="premium-icon">👑</span>
+          </button>
+        </div>
+      </div>
+      
+      <div class="custom-workout">
+        <h3>Custom Workout</h3>
+        <div class="form-group">
+          <input id="workoutType" placeholder="Workout Type" type="text" />
+          <input id="workoutDuration" placeholder="Duration (minutes)" type="number" min="1" max="300" />
+          <button onclick="addWorkout()">Log Workout</button>
+        </div>
+      </div>
+    </div>
+    <ul id="workoutList"></ul>
+  </div>
+
+  <!-- Nutrition Tracker Enhanced -->
+  <div class="section">
+    <h2>
+      <div class="section-icon food-icon">🥗</div>
+      Smart Nutrition Assistant
+    </h2>
+    
+    <!-- Meal Scanner -->
+    <div class="meal-scanner">
+      <h3>Meal Scanner <span class="premium-badge">PREMIUM</span></h3>
+      <div class="scanner-area">
+        <div class="camera-placeholder">
+          <span class="camera-icon">📷</span>
+          <p>Take a photo of your meal for instant nutrition analysis</p>
+          <button onclick="scanMeal()" class="premium-feature">
+            <span class="premium-icon">👑</span>
+            Scan Meal
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Manual Entry -->
+    <div class="manual-entry">
+      <h3>Manual Entry</h3>
+      <div class="form-group">
+        <input id="foodName" placeholder="Food Item" type="text" />
+        <input id="foodCalories" placeholder="Calories (kcal)" type="number" min="1" max="2000" />
+        <button onclick="addFood()">Add Food</button>
+      </div>
+    </div>
+    
+    <div class="nutrition-dashboard">
+      <div class="macro-breakdown">
+        <h3>Macro Breakdown</h3>
+        <div class="macro-chart-container">
+          <canvas id="macroChart"></canvas>
+        </div>
+      </div>
+      
+      <div class="calorie-stats">
+        <div class="stats-container">
+          <div class="stat-card">
+            <div class="stat-value" id="calorieValue">0</div>
+            <div class="stat-label">Today's Calories</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="calorieGoalValue">2000</div>
+            <div class="stat-label">Daily Goal</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="caloriePercentage">0%</div>
+            <div class="stat-label">Progress</div>
+          </div>
+        </div>
+        
+        <div id="caloriesToday">Today's Nutrition: 0 / 2000 kcal</div>
+        <div id="calorieBar">
+          <div id="calorieFill"></div>
+        </div>
+      </div>
+    </div>
+    
+    <ul id="foodList"></ul>
+  </div>
+
+  <!-- Hydration Tracker -->
+  <div class="section">
+    <h2>
+      <div class="section-icon water-icon">💧</div>
+      Smart Hydration
+    </h2>
+    <div class="hydration-container">
+      <div class="water-visual">
+        <div class="water-bottle">
+          <div class="water-level" id="waterLevel"></div>
+          <div class="water-markers">
+            <div class="marker">2L</div>
+            <div class="marker">1.5L</div>
+            <div class="marker">1L</div>
+            <div class="marker">0.5L</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="hydration-controls">
+        <div class="quick-add-buttons">
+          <button onclick="addWater(250)" class="water-btn">Glass<br><span>250ml</span></button>
+          <button onclick="addWater(500)" class="water-btn">Bottle<br><span>500ml</span></button>
+          <button onclick="addWater(1000)" class="water-btn">Large<br><span>1L</span></button>
+        </div>
+        
+        <div class="custom-water">
+          <input id="customWaterAmount" placeholder="Custom amount (ml)" type="number" />
+          <button onclick="addCustomWater()">Add</button>
+        </div>
+        
+        <div class="hydration-stats">
+          <div class="stat-card">
+            <div class="stat-value" id="waterValue">0</div>
+            <div class="stat-label">Glasses Today</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="waterMl">0ml</div>
+            <div class="stat-label">Total Volume</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="waterPercentage">0%</div>
+            <div class="stat-label">Daily Goal</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Weight & Body Composition -->
+  <div class="section">
+    <h2>
+      <div class="section-icon weight-icon">📊</div>
+      Body Composition Tracker
+    </h2>
+    
+    <div class="body-composition">
+      <div class="measurements-input">
+        <h3>Record Measurements</h3>
+        <div class="measurement-grid">
+          <div class="measurement-item">
+            <label>Weight (kg)</label>
+            <input id="weightInput" type="number" step="0.1" min="30" max="200" />
+          </div>
+          <div class="measurement-item premium-feature">
+            <label>Body Fat % <span class="premium-icon">👑</span></label>
+            <input id="bodyFatInput" type="number" step="0.1" min="5" max="50" />
+          </div>
+          <div class="measurement-item premium-feature">
+            <label>Muscle Mass (kg) <span class="premium-icon">👑</span></label>
+            <input id="muscleMassInput" type="number" step="0.1" min="10" max="100" />
+          </div>
+        </div>
+        <div class="measurement-buttons">
+          <button onclick="addWeight()">Record Weight</button>
+          <button onclick="addBodyComposition()" class="premium-feature">
+            <span class="premium-icon">👑</span>
+            Record All
+          </button>
+        </div>
+      </div>
+      
+      <div class="progress-visualization">
+        <div class="stats-container" id="weightStats">
+          <div class="stat-card">
+            <div class="stat-value" id="currentWeight">--</div>
+            <div class="stat-label">Current Weight</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="weightChange">--</div>
+            <div class="stat-label">Change</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="weightTrend">--</div>
+            <div class="stat-label">Trend</div>
+          </div>
+        </div>
+        
+        <div class="chart-container">
+          <canvas id="weightChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Health Reports -->
+  <div class="section">
+    <h2>
+      <div class="section-icon report-icon">📋</div>
+      Health Reports & Insights
+      <span class="premium-badge">PREMIUM</span>
+    </h2>
+    
+    <div class="reports-container">
+      <div class="report-card premium-feature">
+        <h3>Weekly Health Report</h3>
+        <p>Get comprehensive weekly insights about your health progress, including AI recommendations.</p>
+        <button onclick="generateReport('weekly')" class="premium-feature">
+          <span class="premium-icon">👑</span>
+          Generate Report
+        </button>
+      </div>
+      
+      <div class="report-card premium-feature">
+        <h3>Personalized Meal Plan</h3>
+        <p>AI-generated meal plans based on your goals, preferences, and dietary restrictions.</p>
+        <button onclick="generateMealPlan()" class="premium-feature">
+          <span class="premium-icon">👑</span>
+          Create Plan
+        </button>
+      </div>
+      
+      <div class="report-card premium-feature">
+        <h3>Workout Optimization</h3>
+        <p>Get AI-powered workout recommendations optimized for your fitness level and goals.</p>
+        <button onclick="optimizeWorkout()" class="premium-feature">
+          <span class="premium-icon">👑</span>
+          Optimize
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Premium Modal -->
+  <div class="premium-modal" id="premiumModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Unlock Premium Features</h2>
+        <button onclick="closePremiumModal()" class="close-btn">&times;</button>
+      </div>
+      
+      <div class="premium-features">
+        <div class="feature-item">
+          <span class="feature-icon">🤖</span>
+          <div class="feature-text">
+            <h3>AI Health Assistant</h3>
+            <p>24/7 personalized health advice and symptom analysis</p>
+          </div>
+        </div>
+        
+        <div class="feature-item">
+          <span class="feature-icon">📷</span>
+          <div class="feature-text">
+            <h3>Meal Scanner</h3>
+            <p>Instant nutrition analysis from photos</p>
+          </div>
+        </div>
+        
+        <div class="feature-item">
+          <span class="feature-icon">📊</span>
+          <div class="feature-text">
+            <h3>Advanced Analytics</h3>
+            <p>Detailed health reports and body composition tracking</p>
+          </div>
+        </div>
+        
+        <div class="feature-item">
+          <span class="feature-icon">🍽️</span>
+          <div class="feature-text">
+            <h3>Custom Meal Plans</h3>
+            <p>AI-generated meal plans for your specific goals</p>
+          </div>
+        </div>
+        
+        <div class="feature-item">
+          <span class="feature-icon">🏃</span>
+          <div class="feature-text">
+            <h3>Premium Workouts</h3>
+            <p>Access to exclusive workout plans and yoga sessions</p>
+          </div>
+        </div>
+        
+        <div class="feature-item">
+          <span class="feature-icon">☁️</span>
+          <div class="feature-text">
+            <h3>Cloud Sync</h3>
+            <p>Sync your data across all devices</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="pricing-section">
+        <div class="pricing-card featured">
+          <div class="pricing-header">
+            <h3>Premium Monthly</h3>
+            <div class="price">$9.99<span>/month</span></div>
+          </div>
+          <ul class="pricing-features">
+            <li>✅ All Premium Features</li>
+            <li>✅ Unlimited AI Consultations</li>
+            <li>✅ Advanced Analytics</li>
+            <li>✅ Custom Meal Plans</li>
+            <li>✅ Priority Support</li>
+          </ul>
+          <button onclick="purchasePremium('monthly')" class="purchase-btn">Start Free Trial</button>
+        </div>
+        
+        <div class="pricing-card">
+          <div class="pricing-header">
+            <h3>Premium Yearly</h3>
+            <div class="price">$79.99<span>/year</span></div>
+            <div class="savings">Save 33%!</div>
+          </div>
+          <ul class="pricing-features">
+            <li>✅ All Monthly Features</li>
+            <li>✅ Annual Health Report</li>
+            <li>✅ Exclusive Content</li>
+            <li>✅ Beta Feature Access</li>
+          </ul>
+          <button onclick="purchasePremium('yearly')" class="purchase-btn">Best Value</button>
+        </div>
+      </div>
+      
+      <div class="modal-footer">
+        <p>7-day free trial • Cancel anytime • No commitment</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
